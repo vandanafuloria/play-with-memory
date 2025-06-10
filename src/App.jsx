@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, cloneElement } from "react";
 
 import "./App.css";
 import Button from "./ui-components/Button";
 import Cards from "./Cards";
+import ScoreBoard from "./ScoreBoard";
 
 function App() {
   const [cards, setCards] = useState([]);
   const [visibleCards, setVisibleCards] = useState([]);
   const [checked, setChecked] = useState([]);
   const [lost, setLost] = useState("");
+  const [bestScore, setBestScore] = useState(0);
+  const [score, setScore] = useState(0);
 
   // whatever clicked once , will save in this array;
 
@@ -17,7 +20,18 @@ function App() {
 
   function handleClickOnImage(id) {
     console.log(id);
-    checked.includes(id) ? setLost("Lost") : setChecked([...checked, id]);
+    if (checked.includes(id)) {
+      setLost("Lost");
+      setScore(0);
+    } else {
+      setChecked([...checked, id]);
+      setScore(score + 1);
+      bestScore == 0
+        ? setBestScore(bestScore + 1)
+        : score > bestScore
+        ? setBestScore(score)
+        : {};
+    }
 
     const newCards = shuffleArray(cards);
     setVisibleCards(getFirstEight(newCards));
@@ -69,6 +83,11 @@ function App() {
     <>
       <div className="root">
         <h1>Play With Memory 🧠 {lost}</h1>
+        <div className="play">
+          <Button name={"Play"} onClick={handlePlayButton} />
+          <Button name={"Restart"} onClick={handleRestartButton} />
+        </div>
+
         <div
           className="cards-container"
           style={{
@@ -86,15 +105,15 @@ function App() {
             );
           })}
         </div>
-        <div className="play">
-          <Button name={"Play"} onClick={handlePlayButton} />
-          <Button name={"Restart"} onClick={handleRestartButton} />
-        </div>
 
         <div className="level">
           <Button name={"Easy"} />
           <Button name={"Medium"} />
           <Button name={"Hard"} />
+        </div>
+        <div className="scores">
+          <ScoreBoard name={"Score"} score={score} />
+          <ScoreBoard name={" Best Score"} score={bestScore} />
         </div>
       </div>
     </>
