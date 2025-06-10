@@ -7,14 +7,30 @@ import Cards from "./Cards";
 function App() {
   const [cards, setCards] = useState([]);
   const [visibleCards, setVisibleCards] = useState([]);
+  const [checked, setChecked] = useState([]);
+  const [lost, setLost] = useState("");
+
+  // whatever clicked once , will save in this array;
+
   const url = "https://api.artic.edu/api/v1/artworks?limit=20";
   console.log(visibleCards, cards);
 
   function handleClickOnImage(id) {
-    console.log(id, "its selecting");
+    console.log(id);
+    checked.includes(id) ? setLost("Lost") : setChecked([...checked, id]);
+
     const newCards = shuffleArray(cards);
     setVisibleCards(getFirstEight(newCards));
   }
+
+  function handlePlayButton() {
+    setLost("Playing...");
+  }
+  function handleRestartButton() {
+    setLost("Playing...");
+  }
+  console.log(checked, lost);
+
   /**
    *
    * @param {api data} array
@@ -51,25 +67,35 @@ function App() {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          flexWrap: "wrap",
-        }}
-        onClick={() => shuffleArray(cards)}
-      >
-        {visibleCards.map((card) => {
-          return <Cards imageId={card.image_id} onClick={handleClickOnImage} />;
-        })}
-      </div>
-      <Button name={"Play"} />
-      <Button name={"Restart"} />
+      <div className="root">
+        <h1>Play With Memory 🧠 {lost}</h1>
+        <div
+          className="cards-container"
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexWrap: "wrap",
+          }}
+          onClick={() => shuffleArray(cards)}
+        >
+          {visibleCards.map((card) => {
+            return (
+              <div className="cards">
+                <Cards imageId={card.image_id} onClick={handleClickOnImage} />
+              </div>
+            );
+          })}
+        </div>
+        <div className="play">
+          <Button name={"Play"} onClick={handlePlayButton} />
+          <Button name={"Restart"} onClick={handleRestartButton} />
+        </div>
 
-      <div>
-        <Button name={"Easy"} />
-        <Button name={"Medium"} />
-        <Button name={"Hard"} />
+        <div className="level">
+          <Button name={"Easy"} />
+          <Button name={"Medium"} />
+          <Button name={"Hard"} />
+        </div>
       </div>
     </>
   );
