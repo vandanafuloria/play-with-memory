@@ -8,6 +8,7 @@ import LoadingGame from "./components/LoadingGame";
 import Audio from "./ui-components/Audio";
 import Game from "./components/GamePage.jsx";
 import Playground from "./components/Playground.jsx";
+import lostVdo from "./assets/Lily's_world/lost.mp4";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -21,7 +22,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [game, setGame] = useState(false);
 
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const [isEasy, setIsEasy] = useState(true);
 
   const [isGameOver, setIsGameOver] = useState(false);
@@ -41,6 +42,8 @@ function App() {
     if (checked.includes(id)) {
       setIsGameOver(true);
       setScore(0);
+      setPlaying(false);
+      setLost(true);
     } else {
       setChecked([...checked, id]);
       setScore(score + 1);
@@ -49,7 +52,15 @@ function App() {
     }
 
     const newCards = shuffleArray(pokemonList);
-    setVisibleCards(getFirstFour(newCards));
+    if (isEasy == "easy") {
+      setVisibleCards(getFirstFour(newCards));
+    } else if (isEasy == "medium") {
+      setVisibleCards(getFirstEight(newCards));
+      setIsEasy("medium");
+    } else {
+      setVisibleCards(getFirstTwelve(newCards));
+      setIsEasy("hard");
+    }
   }
 
   /**
@@ -105,7 +116,7 @@ function App() {
     const newList = shuffleArray(pokemonList);
     if (isEasy == "easy") setVisibleCards(getFirstFour(newList));
     else if (isEasy == "medium") setVisibleCards(getFirstEight(newList));
-    else setVisibleCards(setVisibleCards(newList));
+    else setVisibleCards(getFirstTwelve(newList));
     handleClickOnImage(id);
   }
 
@@ -148,14 +159,28 @@ function App() {
             bestScore={bestScore}
           />
         )}
+
         {isGameOver && (
           <div className="popup-ovelay">
             <div className="popup">
               <div>
-                <h1>Game Over </h1>
-                <span>You Lost </span>
+                <h1>Challenge Failed</h1>
+                <span>You left Lily in jungle</span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-around" }}>
+                <div>
+                  <button>Retry</button>
+                </div>
+                <div>
+                  <button>Leave for now</button>
+                </div>
               </div>
             </div>
+          </div>
+        )}
+        {lost && (
+          <div className="lost-background">
+            <video src={lostVdo} loop playsInline autoPlay muted></video>
           </div>
         )}
       </div>
