@@ -1,4 +1,4 @@
-import gameBackgound from "../assets/Lily's_world/game-page.mp4";
+import gameBackgound from "../assets/Lily's_world/island.mp4";
 import Button from "../ui-components/Button";
 import lily from "../assets/Lily's_world/lily.png";
 
@@ -27,7 +27,7 @@ export default function Game({ onClick }) {
           <button onClick={() => onClick("hard")}>Insane</button>
         </div>
       </div>
-      <video src={gameBackgound} autoPlay muted loop></video>
+      <video src={gameBackgound} autoPlay muted loop playsInline></video>
     </div>
   );
 }

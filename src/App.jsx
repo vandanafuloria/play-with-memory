@@ -24,35 +24,28 @@ function App() {
   const [playing, setPlaying] = useState(true);
   const [isEasy, setIsEasy] = useState(true);
 
+  const [isGameOver, setIsGameOver] = useState(false);
+
   // whatever clicked once , will save in this array;
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
       setGame(true);
-    }, 10000);
+    }, 1000);
   }, []);
 
   const url = "https://pokeapi.co/api/v2/pokemon?limit=25";
 
-  // console.log("this si pike", pokemonList);
-  console.log({ pokemonList });
-
   function handleClickOnImage(id) {
     if (checked.includes(id)) {
-      setLost("Lost");
+      setIsGameOver(true);
       setScore(0);
     } else {
       setChecked([...checked, id]);
       setScore(score + 1);
 
-      // bestScore == 0
-      //   ? setBestScore(bestScore + 1)
-      //   : score > bestScore
-      //   ? setBestScore(score)
-      //   : {};
-
-      setBestScore(Math.max(bestScore, score));
+      setBestScore(Math.max(bestScore, score)); // which ever the max  will set best score;
     }
 
     const newCards = shuffleArray(pokemonList);
@@ -108,13 +101,12 @@ function App() {
     setPlaying(true);
   }
 
-  function handlePokemonClicked() {
-    console.log(isEasy);
-
+  function handlePokemonClicked(id) {
     const newList = shuffleArray(pokemonList);
     if (isEasy == "easy") setVisibleCards(getFirstFour(newList));
     else if (isEasy == "medium") setVisibleCards(getFirstEight(newList));
     else setVisibleCards(setVisibleCards(newList));
+    handleClickOnImage(id);
   }
 
   useEffect(() => {
@@ -152,7 +144,19 @@ function App() {
           <Playground
             pokemonList={visibleCards}
             onClick={handlePokemonClicked}
+            score={score}
+            bestScore={bestScore}
           />
+        )}
+        {isGameOver && (
+          <div className="popup-ovelay">
+            <div className="popup">
+              <div>
+                <h1>Game Over </h1>
+                <span>You Lost </span>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </>
