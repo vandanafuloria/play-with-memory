@@ -2,12 +2,15 @@ import { useState, useEffect, cloneElement } from "react";
 
 import "./App.css";
 import Button from "./ui-components/Button";
-import Cards from "./Cards";
+import Cards from "./Card.jsx";
 import ScoreBoard from "./ScoreBoard";
 import LoadingGame from "./components/LoadingGame";
 import Audio from "./ui-components/Audio";
+import Game from "./components/GamePage.jsx";
+import Playground from "./components/Playground.jsx";
 
 function App() {
+  const [pokemonList, setPokemonList] = useState([]);
   const [cards, setCards] = useState([]);
   const [visibleCards, setVisibleCards] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -16,18 +19,23 @@ function App() {
   const [score, setScore] = useState(0);
 
   const [loading, setLoading] = useState(true);
+  const [game, setGame] = useState(false);
+
+  const [playing, setPlaying] = useState(true);
 
   // whatever clicked once , will save in this array;
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 14000);
+      setGame(true);
+    }, 10000);
   }, []);
 
-  const url = "https://api.artic.edu/api/v1/artworks?limit=20";
-  console.log(visibleCards, cards);
+  const url = "https://pokeapi.co/api/v2/pokemon?limit=25";
 
+  // console.log("this si pike", pokemonList);
+  console.log({ pokemonList });
   function handleClickOnImage(id) {
     console.log(id);
     if (checked.includes(id)) {
@@ -46,11 +54,9 @@ function App() {
       setBestScore(Math.max(bestScore, score));
     }
 
-    const newCards = shuffleArray(cards);
-    setVisibleCards(getFirstEight(newCards));
+    const newCards = shuffleArray(pokemonList);
+    setVisibleCards(getFirstFour(newCards));
   }
-
-  console.log(checked, lost);
 
   /**
    *
@@ -60,6 +66,7 @@ function App() {
    */
 
   function shuffleArray(array) {
+    console.log("suffling array");
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
 
@@ -67,22 +74,55 @@ function App() {
     }
     return array;
   }
+
   /**
    *
    * @param {Main data form api} cards
    * @returns  sliced array of eight size;
    */
+  function getFirstFour(cards) {
+    return cards.slice(0, 4); // much cleaner
+  }
 
   function getFirstEight(cards) {
     return cards.slice(0, 8); // much cleaner
   }
 
+  function handlePlayer() {
+    setVisibleCards(getFirstFour(cards));
+    setGame(false);
+    setPlaying(true);
+    console.log("thisis easy", visibleCards);
+  }
+
+  function handlePokemonClicked() {
+    const newList = shuffleArray(pokemonList);
+    console.log({ newList });
+    setVisibleCards(getFirstFour(newList));
+  }
+
   useEffect(() => {
-    fetch(url) // replace with actual URL
+    fetch(url)
       .then((res) => res.json())
-      .then((response) => {
-        setCards(response.data);
-        setVisibleCards(getFirstEight(response.data));
+      .then((data) => {
+        const detailPromises = data.results.map((pokemon) =>
+          fetch(pokemon.url).then((res) => res.json())
+        );
+        return Promise.all(detailPromises);
+      })
+      .then((details) => {
+        console.log({ details });
+        const validDetails = details.filter(
+          (item) => item && item.name && item.sprites
+        );
+
+        const finalData = validDetails.map((p) => ({
+          id: p.id,
+          name: p.name,
+          image: p.sprites.other["official-artwork"].front_default,
+        }));
+        setCards(finalData);
+        setPokemonList(finalData);
       });
   }, []);
 
@@ -91,28 +131,13 @@ function App() {
       <div className="root">
         {loading && <LoadingGame />}
 
-        <div className="cards-container" onClick={() => shuffleArray(cards)}>
-          {visibleCards.map((card) => {
-            return (
-              <div className="cards">
-                <Cards
-                  imageId={card.image_id}
-                  onClick={() => handleClickOnImage(card.image_id)}
-                />
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="level">
-          <Button name={"Easy"} />
-          <Button name={"Medium"} />
-          <Button name={"Hard"} />
-        </div>
-        <div className="scores">
-          <ScoreBoard name={"Score"} score={score} />
-          <ScoreBoard name={" Best Score"} score={bestScore} />
-        </div>
+        {game && <Game onClick={handlePlayer} />}
+        {playing && (
+          <Playground
+            pokemonList={visibleCards}
+            onClick={handlePokemonClicked}
+          />
+        )}
       </div>
     </>
   );

@@ -2,7 +2,7 @@
   margin: 0;
   font-family: cursive;
 }
-.loading {
+.loading, .playground{
   width: 100vw;
   height: 100vh;
   position: relative;
@@ -18,7 +18,7 @@
  color: white;
  text-align: center;
 }
-.loading video{
+.loading video, .playground video{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -32,6 +32,110 @@
   padding: 10px;
 
 }
+.intro{
+  display: flex;
+position: absolute;
+width: 60%;
+left: 50%;
+top: 50%;
+
+  transform: translate(-50%, 130%); /* Start from below */
+  opacity: 0;
+  animation: slideIn 2s ease-out forwards ;
+  /* with forward element will remain their after animation finish*/
+  
+}
+@keyframes slideIn{
+    to {
+    transform: translate(-50%, -100%);
+    opacity: 1;
+  }
+}
+
+
+
+.intro div:first-child{
+
+
+  width: 400px;
+  
+
+}
+.intro div:first-child img{
+  width: 100%;
+ 
+  
+}
+.intro div:nth-child(2){
+  background-color: pink;
+  height: 200px;
+  position: relative;
+  top: 40px;
+}
+
+.levels{
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  margin:auto;
+  position: absolute;
+left:0;
+right: 0;
+z-index: 9999; /* it was present on the screen but not interactable because of ovelaping*/
+transform: translateY(1000px);
+ 
+ 
+  animation: slideInButton 2s ease-out forwards ;
+}
+.levels button{
+  cursor: pointer;
+}
+@keyframes slideInButton{
+    to {
+    transform: translateY(500px);
+    opacity: 1;
+  }
+}
+
+.playground{
+
+}
+.card{
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  width: 80%;
+  margin: auto;
+   position: absolute;
+  left: 0;
+  right: 0;
+  top: 200px;
+  flex-wrap: wrap;
+  z-index: 999;
+  
+ 
+}
+.card > div {
+  cursor: pointer;
+}
+.card div{
+  max-width: 200px;
+  width: 20%;
+  min-width: 100px;
+  height: 200px;
+  border: black 2px solid;
+  background-color: black;
+  padding: 1rem;
+  border-radius: 20px;
+  text-align: center;
+
+ 
+}
+.card img{
+  width: 100%;
+  min-width: 100px;
+}
+
 .cards-container{
   width: 70%;
   margin:auto;
@@ -80,9 +184,11 @@
   
 
 }
-.level button{
-  font-size: 1rem;
+.levels button{
+  font-size:1.2rem;
+  padding:0.5rem;
   font-weight: 400;
+  
     border-radius: 10px;
 
 }
@@ -90,7 +196,7 @@
   display: flex;
   justify-content: space-around;
   text-align: center;
-  padding: 5px;
+  padding: 1rem;
   
 }
 .scores div{
