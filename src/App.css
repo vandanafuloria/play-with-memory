@@ -1,21 +1,42 @@
 *{
   margin: 0;
+  font-family: cursive;
 }
-.root{
+.loading {
+  width: 100vw;
   height: 100vh;
-  
-  background-image: url("https://images.unsplash.com/photo-1582604765702-35def506802d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHRleHR1cmUlMjBob3Jpem9udGFsJTIwcGFpbnR8ZW58MHx8MHx8fDA%3D");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-blend-mode:soft-light;
+  position: relative;
+}
+.loading h1{
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ z-index: 999;
+ font-size: 7rem;
+ font-weight: 900;
+ color: white;
+ text-align: center;
+}
+.loading video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.loading i{
+  font-size: 2rem;
+  position: relative;
+  bottom: 4rem;
+  background-color: white;
+  border-radius: 50%;
+  padding: 10px;
 
 }
 .cards-container{
   width: 70%;
   margin:auto;
   gap: 1rem;
-  margin-top: 1rem;
+
  
 
 }
@@ -27,7 +48,7 @@
 }
 .cards div{
   border: black solid 2px;
-  transition: ease 0.5s;
+  transition: ease 1s;
   border-radius: 15px;
   overflow: hidden;
   
@@ -35,11 +56,12 @@
 .cards div:hover{
   transform: scale(1.2);
   box-shadow: 5px 5px 15px rgba(255, 255, 0, 0.59);
+  transform: rotateY(180deg);
 }
 .play{
   display: flex;
   justify-content: space-around;
-  margin: 2rem auto;
+  margin: 1rem auto;
 
 }
 .play button{

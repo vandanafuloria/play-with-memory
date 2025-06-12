@@ -4,6 +4,8 @@ import "./App.css";
 import Button from "./ui-components/Button";
 import Cards from "./Cards";
 import ScoreBoard from "./ScoreBoard";
+import LoadingGame from "./components/LoadingGame";
+import Audio from "./ui-components/Audio";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -13,7 +15,15 @@ function App() {
   const [bestScore, setBestScore] = useState(0);
   const [score, setScore] = useState(0);
 
+  const [loading, setLoading] = useState(true);
+
   // whatever clicked once , will save in this array;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 14000);
+  }, []);
 
   const url = "https://api.artic.edu/api/v1/artworks?limit=20";
   console.log(visibleCards, cards);
@@ -26,23 +36,20 @@ function App() {
     } else {
       setChecked([...checked, id]);
       setScore(score + 1);
-      bestScore == 0
-        ? setBestScore(bestScore + 1)
-        : score > bestScore
-        ? setBestScore(score)
-        : {};
+
+      // bestScore == 0
+      //   ? setBestScore(bestScore + 1)
+      //   : score > bestScore
+      //   ? setBestScore(score)
+      //   : {};
+
+      setBestScore(Math.max(bestScore, score));
     }
 
     const newCards = shuffleArray(cards);
     setVisibleCards(getFirstEight(newCards));
   }
 
-  function handlePlayButton() {
-    setLost("Playing...");
-  }
-  function handleRestartButton() {
-    setLost("Playing...");
-  }
   console.log(checked, lost);
 
   /**
@@ -82,25 +89,16 @@ function App() {
   return (
     <>
       <div className="root">
-        <h1>Play With Memory 🧠 {lost}</h1>
-        <div className="play">
-          <Button name={"Play"} onClick={handlePlayButton} />
-          <Button name={"Restart"} onClick={handleRestartButton} />
-        </div>
+        {loading && <LoadingGame />}
 
-        <div
-          className="cards-container"
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            flexWrap: "wrap",
-          }}
-          onClick={() => shuffleArray(cards)}
-        >
+        <div className="cards-container" onClick={() => shuffleArray(cards)}>
           {visibleCards.map((card) => {
             return (
               <div className="cards">
-                <Cards imageId={card.image_id} onClick={handleClickOnImage} />
+                <Cards
+                  imageId={card.image_id}
+                  onClick={() => handleClickOnImage(card.image_id)}
+                />
               </div>
             );
           })}
