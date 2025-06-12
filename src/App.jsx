@@ -22,6 +22,7 @@ function App() {
   const [game, setGame] = useState(false);
 
   const [playing, setPlaying] = useState(true);
+  const [isEasy, setIsEasy] = useState(true);
 
   // whatever clicked once , will save in this array;
 
@@ -36,8 +37,8 @@ function App() {
 
   // console.log("this si pike", pokemonList);
   console.log({ pokemonList });
+
   function handleClickOnImage(id) {
-    console.log(id);
     if (checked.includes(id)) {
       setLost("Lost");
       setScore(0);
@@ -87,18 +88,33 @@ function App() {
   function getFirstEight(cards) {
     return cards.slice(0, 8); // much cleaner
   }
+  function getFirstTwelve(cards) {
+    return cards.slice(0, 12);
+  }
 
-  function handlePlayer() {
-    setVisibleCards(getFirstFour(cards));
+  function handlePlayer(player) {
+    if (player == "easy") {
+      setVisibleCards(getFirstFour(cards));
+      setIsEasy("easy");
+    } else if (player == "medium") {
+      setVisibleCards(getFirstEight(cards));
+      setIsEasy("medium");
+    } else {
+      setVisibleCards(getFirstTwelve(cards));
+      setIsEasy("hard");
+    }
+
     setGame(false);
     setPlaying(true);
-    console.log("thisis easy", visibleCards);
   }
 
   function handlePokemonClicked() {
+    console.log(isEasy);
+
     const newList = shuffleArray(pokemonList);
-    console.log({ newList });
-    setVisibleCards(getFirstFour(newList));
+    if (isEasy == "easy") setVisibleCards(getFirstFour(newList));
+    else if (isEasy == "medium") setVisibleCards(getFirstEight(newList));
+    else setVisibleCards(setVisibleCards(newList));
   }
 
   useEffect(() => {

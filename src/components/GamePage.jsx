@@ -22,9 +22,9 @@ export default function Game({ onClick }) {
           </div>
         </div>
         <div className="levels">
-          <button onClick={onClick}>Easy</button>
-          <button onClick={onClick}>Easy</button>
-          <button onClick={onClick}>Easy</button>
+          <button onClick={() => onClick("easy")}>Easy</button>
+          <button onClick={() => onClick("medium")}>Medium</button>
+          <button onClick={() => onClick("hard")}>Insane</button>
         </div>
       </div>
       <video src={gameBackgound} autoPlay muted loop></video>

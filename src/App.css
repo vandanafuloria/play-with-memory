@@ -121,10 +121,10 @@ transform: translateY(1000px);
 .card div{
   max-width: 200px;
   width: 20%;
-  min-width: 100px;
+  min-width: 150px;
   height: 200px;
   border: black 2px solid;
-  background-color: black;
+  background-color: rgba(255, 255, 255, 0.533);
   padding: 1rem;
   border-radius: 20px;
   text-align: center;
