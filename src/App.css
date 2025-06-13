@@ -2,7 +2,7 @@
   margin: 0;
   font-family: cursive;
 }
-.loading, .playground, .game-page, .lost-background{
+.loading, .playground, .game-page, .lost-background, .win-background{
   width: 100vw;
   height: 100vh;
   position: relative;
@@ -19,7 +19,7 @@
  color: white;
  text-align: center;
 }
-.loading video, .playground video, .game-page video, .lost-background video{
+.loading video, .playground video, .game-page video, .lost-background video, .win-background video{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -227,7 +227,7 @@ flex-direction: column;
   left: 0;
    width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.176);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -9,13 +9,14 @@ import Audio from "./ui-components/Audio";
 import Game from "./components/GamePage.jsx";
 import Playground from "./components/Playground.jsx";
 import lostVdo from "./assets/Lily's_world/lost.mp4";
+import play from "./assets/Lily's_world/play.mp4";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
   const [cards, setCards] = useState([]);
   const [visibleCards, setVisibleCards] = useState([]);
   const [checked, setChecked] = useState([]);
-  const [lost, setLost] = useState("");
+  const [lost, setLost] = useState(false);
   const [bestScore, setBestScore] = useState(0);
   const [score, setScore] = useState(0);
 
@@ -26,6 +27,9 @@ function App() {
   const [isEasy, setIsEasy] = useState(true);
 
   const [isGameOver, setIsGameOver] = useState(false);
+
+  const [isWin, setIsWin] = useState(false);
+  const [status, setIsStatus] = useState("");
 
   // whatever clicked once , will save in this array;
 
@@ -44,12 +48,37 @@ function App() {
       setScore(0);
       setPlaying(false);
       setLost(true);
+      setIsStatus("Lost");
     } else {
       setChecked([...checked, id]);
       setScore(score + 1);
+      console.log("this is score", isEasy, ":", score);
+      if (isEasy == "easy" && score == 6) {
+        setIsWin(true);
+        setScore(0);
+        setPlaying(false);
+        setLost(false);
+        setIsGameOver(true);
+        setIsStatus("Won");
+      } else if (isEasy == "medium" && score == 10) {
+        setIsWin(true);
+        setScore(0);
+        setPlaying(false);
+        setLost(false);
+        setIsGameOver(true);
+        setIsStatus("Won");
+      } else if (isEasy == "hard" && score == 15) {
+        setIsWin(true);
+        setScore(0);
+        setPlaying(false);
+        setLost(false);
+        setIsGameOver(true);
+        setIsStatus("Won");
+      }
 
       setBestScore(Math.max(bestScore, score)); // which ever the max  will set best score;
     }
+    console.log(isWin);
 
     const newCards = shuffleArray(pokemonList);
     if (isEasy == "easy") {
@@ -71,7 +100,6 @@ function App() {
    */
 
   function shuffleArray(array) {
-    console.log("suffling array");
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
 
@@ -130,7 +158,6 @@ function App() {
         return Promise.all(detailPromises);
       })
       .then((details) => {
-        console.log({ details });
         const validDetails = details.filter(
           (item) => item && item.name && item.sprites
         );
@@ -164,23 +191,39 @@ function App() {
           <div className="popup-ovelay">
             <div className="popup">
               <div>
-                <h1>Challenge Failed</h1>
-                <span>You left Lily in jungle</span>
+                <h1>Challenge {status}</h1>
+                {lost && <span>You left Lily in jungle</span>}
+                {isWin && <span>Thank you, Lily Reached her Home</span>}
               </div>
-              <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <div>
-                  <button>Retry</button>
+              {lost && (
+                <div
+                  style={{ display: "flex", justifyContent: "space-around" }}
+                >
+                  <div>
+                    <button>Retry</button>
+                  </div>
+                  <div>
+                    <button>Leave for now</button>
+                  </div>
                 </div>
+              )}
+              {isWin && (
                 <div>
-                  <button>Leave for now</button>
+                  <button>Play Again</button>
+                  <button>Leave for Now</button>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         )}
         {lost && (
           <div className="lost-background">
             <video src={lostVdo} loop playsInline autoPlay muted></video>
+          </div>
+        )}
+        {isWin && (
+          <div className="win-background">
+            <video src={play} loop playsInline autoPlay muted></video>
           </div>
         )}
       </div>

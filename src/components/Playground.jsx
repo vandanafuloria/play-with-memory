@@ -2,7 +2,6 @@ import background from "../assets/Lily's_world/game-page.mp4";
 import Card from "../Card";
 
 export default function Playground({ pokemonList, onClick, score, bestScore }) {
-  console.log(pokemonList, onClick);
   return (
     <div className="playground">
       <div className="scores">
@@ -21,7 +20,6 @@ export default function Playground({ pokemonList, onClick, score, bestScore }) {
       </div>
       <div className="card">
         {pokemonList.map((poke) => {
-          console.log(poke);
           return (
             <Card
               name={poke.name}
