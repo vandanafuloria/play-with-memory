@@ -1,5 +1,7 @@
 import background from "../assets/Lily's_world/game-page.mp4";
 import Card from "../Card";
+import audio from "../assets/Lily's_world/game.mp3";
+import Audio from "../ui-components/Audio";
 
 export default function Playground({ pokemonList, onClick, score, bestScore }) {
   return (
@@ -30,6 +32,11 @@ export default function Playground({ pokemonList, onClick, score, bestScore }) {
         })}
       </div>
       <video src={background} autoPlay muted loop playsInline></video>
+      <div>
+        <span>
+          <Audio audioSrc={audio} />
+        </span>
+      </div>
     </div>
   );
 }

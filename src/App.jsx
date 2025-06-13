@@ -1,4 +1,4 @@
-import { useState, useEffect, cloneElement } from "react";
+import { useState, useEffect } from "react";
 
 import "./App.css";
 import Button from "./ui-components/Button";
@@ -37,7 +37,7 @@ function App() {
     setTimeout(() => {
       setLoading(false);
       setGame(true);
-    }, 1000);
+    }, 5000);
   }, []);
 
   const url = "https://pokeapi.co/api/v2/pokemon?limit=25";

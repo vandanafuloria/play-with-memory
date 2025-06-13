@@ -1,6 +1,8 @@
 import gameBackgound from "../assets/Lily's_world/island.mp4";
 import Button from "../ui-components/Button";
 import lily from "../assets/Lily's_world/lily.png";
+import Audio from "../ui-components/Audio";
+import AudioSrc from "../assets/Lily's_world/start.mp3";
 
 export default function Game({ onClick }) {
   return (
@@ -28,6 +30,9 @@ export default function Game({ onClick }) {
         </div>
       </div>
       <video src={gameBackgound} autoPlay muted loop playsInline></video>
+      <span>
+        <Audio audioSrc={AudioSrc} />
+      </span>
     </div>
   );
 }
