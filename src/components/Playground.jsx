@@ -1,9 +1,21 @@
-import background from "../assets/Lily's_world/game-page.mp4";
-import Card from "../Card";
-import audio from "../assets/Lily's_world/game.mp3";
+import { useEffect, useState } from "react";
+import background from "../assets/lily/game-page.mp4";
+import Card from "../ui-components/Card";
+import audio from "../assets/lily/game.mp3";
 import Audio from "../ui-components/Audio";
 
 export default function Playground({ pokemonList, onClick, score, bestScore }) {
+  const [allFlipped, setAllFlipped] = useState(false);
+
+  const handleCardClick = (id) => {
+    setAllFlipped(true); // flip all
+
+    // flip back after 2 seconds
+    setTimeout(() => {
+      onClick(id); // this will shuffle the cards and reredner
+      setAllFlipped(() => false);
+    }, 1000);
+  };
   return (
     <div className="playground">
       <div className="scores">
@@ -20,13 +32,15 @@ export default function Playground({ pokemonList, onClick, score, bestScore }) {
           <span>{bestScore}</span>
         </div>
       </div>
-      <div className="card">
-        {pokemonList.map((poke) => {
+      <div className="main-cards">
+        {pokemonList.map((poke, id) => {
           return (
             <Card
+              key={id}
               name={poke.name}
-              img={poke.image}
-              onClick={() => onClick(poke.id)}
+              frontImg={poke.image}
+              isFlipped={allFlipped}
+              onClick={() => handleCardClick(poke.id)}
             />
           );
         })}

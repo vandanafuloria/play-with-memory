@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import "./App.css";
 import Button from "./ui-components/Button";
-import Cards from "./Card.jsx";
-import ScoreBoard from "./ScoreBoard";
+import Cards from "./ui-components/Card.jsx";
+import ScoreBoard from "./ui-components/ScoreBoard.jsx";
 import LoadingGame from "./components/LoadingGame";
 import Audio from "./ui-components/Audio";
 import Game from "./components/GamePage.jsx";
-import Playground from "./components/Playground.jsx";
-import lostVdo from "./assets/Lily's_world/lost.mp4";
-import play from "./assets/Lily's_world/play.mp4";
+import Playground from "./components/Playground";
+import lostVdo from "./assets/lily/lost.mp4";
+import play from "./assets/lily/play.mp4";
+import victory from "./assets/lily/victory.mp3";
+import lostAdo from "./assets/lily/lost.mp3";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -37,7 +39,31 @@ function App() {
     setTimeout(() => {
       setLoading(false);
       setGame(true);
-    }, 5000);
+    }, 10000);
+  }, []);
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        const detailPromises = data.results.map((pokemon) =>
+          fetch(pokemon.url).then((res) => res.json())
+        );
+        return Promise.all(detailPromises);
+      })
+      .then((details) => {
+        const validDetails = details.filter(
+          (item) => item && item.name && item.sprites
+        );
+
+        const finalData = validDetails.map((p) => ({
+          id: p.id,
+          name: p.name,
+          image: p.sprites.other["official-artwork"].front_default,
+        }));
+        // setCards(finalData);
+        setPokemonList(finalData);
+      });
   }, []);
 
   const url = "https://pokeapi.co/api/v2/pokemon?limit=25";
@@ -80,9 +106,22 @@ function App() {
     }
     console.log(isWin);
 
+    // const shuffled =
+    //   isEasy === "easy"
+    //     ? getFirstFour(newCards)
+    //     : isEasy === "medium"
+    //     ? getFirstEight(newCards)
+    //     : getFirstTwelve(newCards);
+
+    // const n = isEasy === "easy" ? 4 : isEasy === "medium" ? 8 : 12;
+    // const shuffled = getFirstN(, n);
+    // setVisibleCards(shuffled);
+
     const newCards = shuffleArray(pokemonList);
+    console.log({ isEasy });
     if (isEasy == "easy") {
       setVisibleCards(getFirstFour(newCards));
+      setIsEasy("easy");
     } else if (isEasy == "medium") {
       setVisibleCards(getFirstEight(newCards));
       setIsEasy("medium");
@@ -100,12 +139,16 @@ function App() {
    */
 
   function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
 
-      [array[i], array[j]] = [array[j], array[i]];
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
     }
-    return array;
+    return shuffledArray;
   }
 
   /**
@@ -113,6 +156,9 @@ function App() {
    * @param {Main data form api} cards
    * @returns  sliced array of eight size;
    */
+  function getFirstN(cards, n) {
+    return cards.slice(0, n);
+  }
   function getFirstFour(cards) {
     return cards.slice(0, 4); // much cleaner
   }
@@ -126,51 +172,25 @@ function App() {
 
   function handlePlayer(player) {
     if (player == "easy") {
-      setVisibleCards(getFirstFour(cards));
+      setVisibleCards(getFirstFour(pokemonList));
       setIsEasy("easy");
     } else if (player == "medium") {
-      setVisibleCards(getFirstEight(cards));
+      setVisibleCards(getFirstEight(pokemonList));
       setIsEasy("medium");
     } else {
-      setVisibleCards(getFirstTwelve(cards));
+      setVisibleCards(getFirstTwelve(pokemonList));
       setIsEasy("hard");
     }
 
     setGame(false);
     setPlaying(true);
   }
-
   function handlePokemonClicked(id) {
-    const newList = shuffleArray(pokemonList);
-    if (isEasy == "easy") setVisibleCards(getFirstFour(newList));
-    else if (isEasy == "medium") setVisibleCards(getFirstEight(newList));
-    else setVisibleCards(getFirstTwelve(newList));
     handleClickOnImage(id);
+
+    const newArray = shuffleArray(pokemonList);
+    setVisibleCards(getFirstFour(newArray));
   }
-
-  useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        const detailPromises = data.results.map((pokemon) =>
-          fetch(pokemon.url).then((res) => res.json())
-        );
-        return Promise.all(detailPromises);
-      })
-      .then((details) => {
-        const validDetails = details.filter(
-          (item) => item && item.name && item.sprites
-        );
-
-        const finalData = validDetails.map((p) => ({
-          id: p.id,
-          name: p.name,
-          image: p.sprites.other["official-artwork"].front_default,
-        }));
-        setCards(finalData);
-        setPokemonList(finalData);
-      });
-  }, []);
 
   return (
     <>
@@ -219,11 +239,22 @@ function App() {
         {lost && (
           <div className="lost-background">
             <video src={lostVdo} loop playsInline autoPlay muted></video>
+            <div>
+              <span>
+                <Audio audioSrc={lostAdo} />
+              </span>
+            </div>
           </div>
         )}
         {isWin && (
           <div className="win-background">
             <video src={play} loop playsInline autoPlay muted></video>
+            <div>
+              <span>
+                {" "}
+                <Audio audioSrc={victory} />
+              </span>
+            </div>
           </div>
         )}
       </div>

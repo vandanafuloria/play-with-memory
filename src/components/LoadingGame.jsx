@@ -1,11 +1,12 @@
-import loading from "../assets/Lily's_world/smiling-girl.mp4";
+import loading from "../assets/lily/loading.mp4";
 import Audio from "../ui-components/Audio";
-import loadingAudio from "../assets/Lily's_world/audio.mp3";
+import loadingAudio from "../assets/lily/loader.mp3";
+console.log(loadingAudio);
 
 export default function LoadingGame() {
   return (
     <div className="loading">
-      <h1>Loading</h1>
+      <h1>Welcome to Lily's Adventure!</h1>
       <video src={loading} autoPlay muted loop></video>
       <span>
         <Audio audioSrc={loadingAudio} />

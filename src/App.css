@@ -1,7 +1,12 @@
 *{
   margin: 0;
-  font-family: cursive;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
+body {
+  background: black;
+}
+
 .loading, .playground, .game-page, .lost-background, .win-background{
   width: 100vw;
   height: 100vh;
@@ -10,14 +15,25 @@
 }
 .loading h1{
  position: absolute;
- top: 0;
+ top: 10px;
  left: 0;
  right: 0;
  z-index: 999;
- font-size: 7rem;
+ font-size: 4rem;
  font-weight: 900;
  color: white;
  text-align: center;
+
+  font-family: "Titan One", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-style: normal;
+  text-shadow: 3px 3px 10px white;
+
+ animation: typing 4s steps(8, end) forwards, blink 0.7s step-end infinite;
+ 
+
+
 }
 .loading video, .playground video, .game-page video, .lost-background video, .win-background video{
   width: 100%;
@@ -36,7 +52,7 @@
 .intro{
   display: flex;
 position: absolute;
-width: 60%;
+width: 80%;
 left: 50%;
 top: 50%;
 
@@ -58,20 +74,53 @@ top: 50%;
 .intro div:first-child{
 
 
-  width: 400px;
+  width: 300px;
+  height: 300px;
+  border:white 1px solid;
+  border-radius: 20px;
+  overflow: hidden;
+  flex-basis: 30%;
+  box-shadow: 10px 10px 30px 20px darkblue;
+   min-width: 150px;
   
 
 }
 .intro div:first-child img{
   width: 100%;
+  height: 100%;
+ 
  
   
 }
 .intro div:nth-child(2){
-  background-color: pink;
-  height: 200px;
+  background-color: rgba(13, 13, 62, 0.781);
+  height: 80%;
+  min-height: 250px;
   position: relative;
   top: 40px;
+  padding:6px;
+  border-radius: 20px;
+  border:1px solid white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.intro div:nth-child(2) p{
+  color: white;
+  text-shadow: 2px 2px 5px gray;
+
+  font-family:cursive;
+  font-size: 1.7rem;
+}
+.intro div:nth-child(2) span{
+ display: inline-block;
+ margin: 1rem ;
+font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+font-weight: lighter;
+ color:rgb(162, 191, 13);
+ border:1px solid white;
+ border-radius: 10px;
+ background-color: lightgray;
+ padding: 1rem;
+ color:rgb(13, 13, 55);
 }
 
 .levels{
@@ -90,6 +139,10 @@ transform: translateY(1000px);
 }
 .levels button{
   cursor: pointer;
+  transition: ease-in-out 0.7s;
+}
+.levels button:hover{
+  transform: scale(1.2);
 }
 @keyframes slideInButton{
     to {
@@ -98,71 +151,9 @@ transform: translateY(1000px);
   }
 }
 
-.playground{
 
-}
-.card{
-  display: flex;
-  justify-content: space-around;
-  gap: 2rem;
-  width: 80%;
-  margin: auto;
-   position: absolute;
-  left: 0;
-  right: 0;
-  top: 200px;
-  flex-wrap: wrap;
-  z-index: 999;
   
- 
-}
-.card > div {
-  cursor: pointer;
-}
-.card div{
-  max-width: 200px;
-  width: 20%;
-  min-width: 150px;
 
-  border: black 2px solid;
-  background-color: rgba(255, 255, 255, 0.533);
-  padding: 1rem;
-  border-radius: 20px;
-  text-align: center;
-
- 
-}
-.card img{
-  width: 100%;
-  min-width: 100px;
-}
-
-.cards-container{
-  width: 70%;
-  margin:auto;
-  gap: 1rem;
-
- 
-
-}
-.cards{
-  margin: 3rem auto;
- 
-  margin: 2rem auto;
-  
-}
-.cards div{
-  border: black solid 2px;
-  transition: ease 1s;
-  border-radius: 15px;
-  overflow: hidden;
-  
-}
-.cards div:hover{
-  transform: scale(1.2);
-  box-shadow: 5px 5px 15px rgba(255, 255, 0, 0.59);
-  transform: rotateY(180deg);
-}
 .scores{
   display: flex;
   justify-content: space-around;
@@ -190,9 +181,13 @@ transform: translateY(1000px);
 
 }
 .levels button{
-  font-size:1.2rem;
+  font-size:1.5rem;
   padding:0.5rem;
-  font-weight: 400;
+  font-weight: 500;
+  font-style: oblique;
+  background-color: rgba(255, 255, 255, 0.836);
+  color:darkblue;
+  border:rgb(31, 21, 62) 2px solid;
   
     border-radius: 10px;
 
@@ -239,4 +234,108 @@ flex-direction: column;
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+/********************** CARD FILIPPING CSS **********************************/
+
+.card-scene {
+  max-width: 300px;
+ 
+  height: 180px;
+  perspective: 1000px;
+}
+
+.card {
+  max-width:300px ;
+  min-width: 100px;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease-in-out;
+  cursor: pointer;
+  background-color: black;
+  border-radius: 10px;
+  
+  
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+.card-face {
+  position: absolute; /**  to ovelap each other  relative to card*/
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.card-front,
+.card-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-front img,
+.card-back img {
+  width: 100%;
+  height: 100%;
+  /* object-fit: cover; */
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+/************************************************************/
+.main-cards{
+  width: 80%;
+  margin:auto;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(4, 15%);
+  justify-content: space-around;
+ gap: 1.5rem;
+ left:0;
+ right: 0;
+ top: 150px;
+ 
+
+}
+.main-cards> div{
+
+  border-radius: 10px;
+ 
+  z-index: 9999;
+}
+.header{
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  
+  position: absolute;
+  right:0;
+  
+ 
+  
+}
+.header h1{
+  font-size: 3rem;
+  color: rgb(17, 17, 61);
+ font-family: "Titan One", sans-serif; ;
+  text-shadow: 5px 5px 10px white;
+  
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Cursor blinking */
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
 }
