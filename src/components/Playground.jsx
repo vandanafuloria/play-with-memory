@@ -46,11 +46,8 @@ export default function Playground({ pokemonList, onClick, score, bestScore }) {
         })}
       </div>
       <video src={background} autoPlay muted loop playsInline></video>
-      <div>
-        <span>
-          <Audio audioSrc={audio} />
-        </span>
-      </div>
+
+      <Audio audioSrc={audio} />
     </div>
   );
 }

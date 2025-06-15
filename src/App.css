@@ -19,16 +19,16 @@ body {
  left: 0;
  right: 0;
  z-index: 999;
- font-size: 4rem;
+ font-size: 6rem;
  font-weight: 900;
- color: white;
+ color: rgb(239, 95, 42);
  text-align: center;
 
   font-family: "Titan One", sans-serif;
   font-style: italic;
   font-weight: 400;
   font-style: normal;
-  text-shadow: 3px 3px 10px white;
+ 
 
  animation: typing 4s steps(8, end) forwards, blink 0.7s step-end infinite;
  
@@ -40,13 +40,16 @@ body {
   height: 100%;
   object-fit: cover;
 }
-.loading i{
-  font-size: 2rem;
-  position: relative;
-  bottom: 4rem;
-  background-color: white;
-  border-radius: 50%;
-  padding: 10px;
+ .audio {
+cursor: pointer;
+    color: white;
+    position: absolute;
+ 
+    bottom: 20px;
+    border-radius: 50%;
+    background-color: white;
+    padding: 1rem;
+    color: black;
 
 }
 .intro{
@@ -80,7 +83,7 @@ top: 50%;
   border-radius: 20px;
   overflow: hidden;
   flex-basis: 30%;
-  box-shadow: 10px 10px 30px 20px darkblue;
+  box-shadow: 10px 10px 30px 20px rgb(239, 95, 42);;
    min-width: 150px;
   
 
@@ -196,17 +199,16 @@ transform: translateY(1000px);
   display: flex;
   justify-content: left;
   text-align: center;
-  padding: 1rem;
+
   position: absolute;
   right: 0;
-  gap: 2rem;
+  gap: 1rem;
 
   
 }
 
 .scores div{
 background-color: orange;
-padding: 10px;
 width: 200px;
 border-radius: 15px;
 display: flex;
@@ -214,7 +216,7 @@ flex-direction: column;
 }
 
 .scores div span{
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 .popup-ovelay{
   position: fixed;
@@ -237,26 +239,53 @@ flex-direction: column;
 }
 /********************** CARD FILIPPING CSS **********************************/
 
+.main-cards{
+  width: 80%;
+  margin:auto;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+ grid-auto-rows: minmax(200px, auto);
+
+ gap: 3.5rem;
+ left:0;
+ right: 0;
+ top: 80px;
+ 
+
+}
 .card-scene {
   max-width: 300px;
- 
-  height: 180px;
+  height: 100%;
+
   perspective: 1000px;
 }
 
 .card {
-  max-width:300px ;
-  min-width: 100px;
+  max-width:250px ;
+  min-width: 120px;
   height: 100%;
+
   position: relative;
   transform-style: preserve-3d;
   transition: transform 1s ease-in-out;
   cursor: pointer;
-  background-color: black;
+  background-color: rgba(255, 255, 255, 0.392);
   border-radius: 10px;
+ 
+  transition: 500ms ;
+  transition: 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
+    will-change: transform;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+
   
   
 }
+.card:hover{
+    transform: perspective(1000px) rotateX(10deg) rotateY(10deg) scale3d(1.05, 1.05, 1.05);
+
+}
+
 
 .card.flipped {
   transform: rotateY(180deg);
@@ -264,42 +293,39 @@ flex-direction: column;
 .card-face {
   position: absolute; /**  to ovelap each other  relative to card*/
   width: 100%;
-  height: 100%;
+  height: 90%;
+
   backface-visibility: hidden;
   overflow: hidden;
   border-radius: 10px;
 }
-.card-front,
+/* .card-front,
 .card-back {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 .card-front img,
 .card-back img {
   width: 100%;
   height: 100%;
-  /* object-fit: cover; */
+
+
+}
+.card-scene h6{
+  text-align: center;
+  color:white;
+  text-shadow: 2px 2px 10px white;
+  font-size: 1.2rem;
+  background-color: orangered;
+  border-radius: 10px;
 }
 
 .card-back {
   transform: rotateY(180deg);
 }
 /************************************************************/
-.main-cards{
-  width: 80%;
-  margin:auto;
-  position: absolute;
-  display: grid;
-  grid-template-columns: repeat(4, 15%);
-  justify-content: space-around;
- gap: 1.5rem;
- left:0;
- right: 0;
- top: 150px;
- 
 
-}
 .main-cards> div{
 
   border-radius: 10px;
@@ -319,7 +345,7 @@ flex-direction: column;
 }
 .header h1{
   font-size: 3rem;
-  color: rgb(17, 17, 61);
+  color:orangered;
  font-family: "Titan One", sans-serif; ;
   text-shadow: 5px 5px 10px white;
   
@@ -338,4 +364,16 @@ flex-direction: column;
   50% {
     border-color: transparent;
   }
+}
+
+.aduio{
+  position:  absolute;
+  z-index: 999;
+  color: black;
+  background-color: white;
+  border-radius: 50%;
+}
+.aduio i{
+    color: black;
+  background-color: white;
 }

@@ -8,9 +8,8 @@ export default function LoadingGame() {
     <div className="loading">
       <h1>Welcome to Lily's Adventure!</h1>
       <video src={loading} autoPlay muted loop></video>
-      <span>
-        <Audio audioSrc={loadingAudio} />
-      </span>
+
+      <Audio audioSrc={loadingAudio} />
     </div>
   );
 }

@@ -35,9 +35,8 @@ export default function Game({ onClick }) {
         </div>
       </div>
       <video src={gameBackgound} autoPlay muted loop playsInline></video>
-      <span>
-        <Audio audioSrc={AudioSrc} />
-      </span>
+
+      <Audio audioSrc={AudioSrc} />
     </div>
   );
 }

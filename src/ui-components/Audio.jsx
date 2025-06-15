@@ -30,7 +30,11 @@ export default function Audio({ audioSrc }) {
   };
 
   return (
-    <div onClick={toggleMutedButton} style={{ cursor: "pointer" }}>
+    <div
+      className="audio"
+      onClick={toggleMutedButton}
+      style={{ cursor: "pointer" }}
+    >
       <i
         className={`fa-solid ${isMuted ? "fa-volume-xmark" : "fa-volume-high"}`}
       ></i>
