@@ -17,15 +17,12 @@ export default function Game({ onClick }) {
           inset: 0,
           width: "100%",
           height: "100vh",
+          backgroundSize: "cover",
         }}
         src={game}
         alt=""
       />
       <div className="main-game">
-        <div className="header">
-          <h1>Lily's Home</h1>
-        </div>
-
         <div className="intro">
           <div>
             <img src={lily} />

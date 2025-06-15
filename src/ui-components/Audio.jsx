@@ -9,9 +9,7 @@ export default function Audio({ audioSrc, loop }) {
     if (audioRef.current) {
       audioRef.current.muted = false; // required for autoplay
       audioRef.current.volume = 0.7;
-      audioRef.current.play().catch((e) => {
-        console.warn("Autoplay blocked:", e);
-      });
+      audioRef.current.play();
     }
   }, []);
 
