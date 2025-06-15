@@ -48,7 +48,7 @@ export default function Game({ onClick }) {
         </div>
       </div>
 
-      <Audio audioSrc={AudioSrc} />
+      <Audio audioSrc={AudioSrc} loop={true} />
     </div>
   );
 }

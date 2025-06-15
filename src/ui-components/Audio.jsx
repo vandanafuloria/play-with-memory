@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function Audio({ audioSrc }) {
+export default function Audio({ audioSrc, loop }) {
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(null);
 
@@ -38,7 +38,7 @@ export default function Audio({ audioSrc }) {
       <i
         className={`fa-solid ${isMuted ? "fa-volume-xmark" : "fa-volume-high"}`}
       ></i>
-      <audio ref={audioRef} src={audioSrc} loop />
+      <audio ref={audioRef} src={audioSrc} loop={loop} />
     </div>
   );
 }

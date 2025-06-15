@@ -301,7 +301,7 @@ function App() {
             <video src={lostVdo} loop playsInline autoPlay muted></video>
             <div>
               <span>
-                <Audio audioSrc={lostAdo} />
+                <Audio audioSrc={lostAdo} loop={false} />
               </span>
             </div>
           </div>
@@ -312,7 +312,7 @@ function App() {
             <div>
               <span>
                 {" "}
-                <Audio audioSrc={victory} />
+                <Audio audioSrc={victory} loop={false} />
               </span>
             </div>
           </div>

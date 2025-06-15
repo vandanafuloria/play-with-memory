@@ -55,7 +55,7 @@ export default function Playground({
         })}
       </div>
 
-      <Audio audioSrc={audio} />
+      <Audio audioSrc={audio} loop={true} />
     </div>
   );
 }
