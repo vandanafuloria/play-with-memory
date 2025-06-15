@@ -4,25 +4,26 @@
 }
 
 body {
-  background: black;
+  
 }
+
 
 .loading, .playground, .game-page, .lost-background, .win-background{
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-position: cover;
+  
+
 }
 .loading h1{
+
+ font-size: 4rem;
  position: absolute;
- top: 10px;
- left: 0;
- right: 0;
- z-index: 999;
- font-size: 6rem;
- font-weight: 900;
+
+
  color: rgb(239, 95, 42);
  text-align: center;
+ background-color: transparent;
 
   font-family: "Titan One", sans-serif;
   font-style: italic;
@@ -35,32 +36,39 @@ body {
 
 
 }
+
 .loading video, .playground video, .game-page video, .lost-background video, .win-background video{
   width: 100%;
   height: 100%;
+  position: absolute;
   object-fit: cover;
+  z-index: -1;
 }
  .audio {
 cursor: pointer;
+position: fixed;
+bottom: 20px;
     color: white;
-    position: absolute;
+    width: 20px;
+    height: 20px;
+   
  
-    bottom: 20px;
     border-radius: 50%;
     background-color: white;
     padding: 1rem;
     color: black;
-    z-index: 99999;
+    z-index: 9999;
+
 
 }
 .intro{
   display: flex;
-position: absolute;
-width: 80%;
-left: 50%;
-top: 50%;
 
-  transform: translate(-50%, 130%); /* Start from below */
+width: 80%;
+margin:auto;
+
+
+  transform: translateY( 150%); 
   opacity: 0;
   animation: slideIn 2s ease-out forwards ;
   /* with forward element will remain their after animation finish*/
@@ -68,7 +76,7 @@ top: 50%;
 }
 @keyframes slideIn{
     to {
-    transform: translate(-50%, -100%);
+    transform: translateY(0%);
     opacity: 1;
   }
 }
@@ -91,6 +99,7 @@ top: 50%;
 }
 .intro div:first-child img{
   width: 100%;
+  min-width: 200px;
   height: 100%;
  
  
@@ -136,7 +145,7 @@ font-weight: lighter;
 left:0;
 right: 0;
 z-index: 9999; /* it was present on the screen but not interactable because of ovelaping*/
-transform: translateY(1000px);
+transform: translateY(500px);
  
  
   animation: slideInButton 2s ease-out forwards ;
@@ -150,7 +159,7 @@ transform: translateY(1000px);
 }
 @keyframes slideInButton{
     to {
-    transform: translateY(500px);
+    transform: translateY(30px);
     opacity: 1;
   }
 }
@@ -239,6 +248,11 @@ flex-direction: column;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   font-family: 'Courier New', Courier, monospace;
   color:white;
+      position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
  
 }
 .popup span{
@@ -264,10 +278,11 @@ flex-direction: column;
 }
 .btn{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   gap:3rem;
   flex-wrap: wrap;
 }
+
 .btn button{
   display: flex;
 align-items: center;
@@ -298,7 +313,7 @@ padding:1rem;
   grid-template-columns: repeat(4, 1fr);
  grid-auto-rows: minmax(200px, auto);
 
- gap: 3.5rem;
+ gap: 1.5rem;
  left:0;
  right: 0;
  top: 80px;
@@ -344,7 +359,7 @@ padding:1rem;
 .card-face {
   position: absolute; /**  to ovelap each other  relative to card*/
   width: 100%;
-  height: 90%;
+  height: 100%;
 
   backface-visibility: hidden;
   overflow: hidden;
@@ -387,10 +402,8 @@ padding:1rem;
   display: flex;
   justify-content: space-around;
   gap: 2rem;
-  
-  position: absolute;
-  right:0;
-  
+ 
+
  
   
 }

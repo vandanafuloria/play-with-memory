@@ -4,7 +4,13 @@ import Card from "../ui-components/Card";
 import audio from "../assets/lily/game.mp3";
 import Audio from "../ui-components/Audio";
 
-export default function Playground({ pokemonList, onClick, score, bestScore }) {
+export default function Playground({
+  pokemonList,
+  onClick,
+  score,
+  bestScore,
+  winPoint,
+}) {
   const [allFlipped, setAllFlipped] = useState(false);
 
   const handleCardClick = (id) => {
@@ -23,7 +29,9 @@ export default function Playground({ pokemonList, onClick, score, bestScore }) {
           <span>Score</span>
           <hr />
           <hr />
-          <span>{score}</span>
+          <span>
+            {score} \ {winPoint}
+          </span>
         </div>
         <div>
           <span>Best Score</span>

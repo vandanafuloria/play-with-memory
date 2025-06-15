@@ -8,6 +8,7 @@ import home from "../assets/lily/home.png";
 export default function Game({ onClick }) {
   return (
     <div className="game-page">
+      <video src={gameBackgound} autoPlay muted loop playsInline></video>
       <div className="main-game">
         <div className="header">
           <h1>Lily's Home</h1>
@@ -34,7 +35,6 @@ export default function Game({ onClick }) {
           <button onClick={() => onClick("hard")}>Insane</button>
         </div>
       </div>
-      <video src={gameBackgound} autoPlay muted loop playsInline></video>
 
       <Audio audioSrc={AudioSrc} />
     </div>

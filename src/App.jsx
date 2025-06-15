@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 import "./App.css";
 import Button from "./ui-components/Button";
@@ -12,6 +12,7 @@ import Playground from "./components/Playground";
 import play from "./assets/lily/play.mp4";
 import victory from "./assets/lily/victory.mp3";
 import lostAdo from "./assets/lily/lost.mp3";
+import flipcard from "./assets/lily/flipcard.mp3";
 const lostVdo =
   "https://packaged-media.redd.it/ts43e1oey58d1/pb/m2-res_1080p.mp4?m=DASHPlaylist.mpd&v=1&e=1749988800&s=92dd398840d2026a72cbfeac627f0d98b11a7024";
 
@@ -34,6 +35,7 @@ function App() {
 
   const [isWin, setIsWin] = useState(false);
   const [status, setIsStatus] = useState("");
+  const [winPoint, setIsWinPoint] = useState("");
 
   // whatever clicked once , will save in this array;
 
@@ -104,9 +106,10 @@ function App() {
         setIsStatus("Won");
       }
 
-      setBestScore(Math.max(bestScore, score)); // which ever the max  will set best score;
+      setBestScore(Math.max(bestScore, score));
+
+      // which ever the max  will set best score;
     }
-    console.log(isWin);
 
     // const shuffled =
     //   isEasy === "easy"
@@ -120,16 +123,18 @@ function App() {
     // setVisibleCards(shuffled);
 
     const newCards = shuffleArray(pokemonList);
-    console.log({ isEasy });
+
     if (isEasy == "easy") {
       setVisibleCards(getFirstFour(newCards));
       setIsEasy("easy");
     } else if (isEasy == "medium") {
       setVisibleCards(getFirstEight(newCards));
       setIsEasy("medium");
+      setIsWinPoint(10);
     } else {
       setVisibleCards(getFirstTwelve(newCards));
       setIsEasy("hard");
+      setIsWinPoint(15);
     }
   }
 
@@ -176,22 +181,28 @@ function App() {
     if (player == "easy") {
       setVisibleCards(getFirstFour(pokemonList));
       setIsEasy("easy");
+      setIsWinPoint(6);
     } else if (player == "medium") {
       setVisibleCards(getFirstEight(pokemonList));
       setIsEasy("medium");
+      setIsWinPoint(10);
     } else {
       setVisibleCards(getFirstTwelve(pokemonList));
       setIsEasy("hard");
+      setIsWinPoint(15);
     }
 
     setGame(false);
     setPlaying(true);
   }
   function handlePokemonClicked(id) {
-    handleClickOnImage(id);
+    const clickSound = new window.Audio(flipcard);
 
-    const newArray = shuffleArray(pokemonList);
-    setVisibleCards(getFirstFour(newArray));
+    clickSound.volume = 0.5;
+    clickSound.currentTime = 0;
+
+    clickSound.play();
+    handleClickOnImage(id);
   }
 
   return (
@@ -206,6 +217,7 @@ function App() {
             onClick={handlePokemonClicked}
             score={score}
             bestScore={bestScore}
+            winPoint={winPoint}
           />
         )}
 
@@ -238,9 +250,20 @@ function App() {
                 </div>
               )}
               {isWin && (
-                <div>
-                  <button>Play Again</button>
-                  <button>Leave for Now</button>
+                <div className="btn">
+                  <div>
+                    {" "}
+                    <button>
+                      <i className="fa-regular fa-circle"> </i>Play Again
+                    </button>
+                  </div>
+                  <div>
+                    <button>
+                      {" "}
+                      <i className="fa-regular fa-circle-xmark"></i>Leave for
+                      Now
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
