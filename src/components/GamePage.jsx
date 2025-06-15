@@ -4,11 +4,23 @@ import lily from "../assets/lily/lily.png";
 import Audio from "../ui-components/Audio";
 import AudioSrc from "../assets/lily/start.mp3";
 import home from "../assets/lily/home.png";
+const game =
+  "https://w0.peakpx.com/wallpaper/892/115/HD-wallpaper-night-forest-art-fantasy-3d-girl-dark-jungle-trees.jpg";
 
 export default function Game({ onClick }) {
   return (
     <div className="game-page">
-      <video src={gameBackgound} autoPlay muted loop playsInline></video>
+      {/* <video src={game} autoPlay muted loop playsInline></video> */}
+      <img
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100vh",
+        }}
+        src={game}
+        alt=""
+      />
       <div className="main-game">
         <div className="header">
           <h1>Lily's Home</h1>

@@ -24,6 +24,7 @@ export default function Playground({
   };
   return (
     <div className="playground">
+      <video src={background} autoPlay muted loop playsInline></video>
       <div className="scores">
         <div>
           <span>Score</span>
@@ -53,7 +54,6 @@ export default function Playground({
           );
         })}
       </div>
-      <video src={background} autoPlay muted loop playsInline></video>
 
       <Audio audioSrc={audio} />
     </div>

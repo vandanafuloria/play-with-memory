@@ -106,7 +106,7 @@ margin:auto;
   
 }
 .intro div:nth-child(2){
-  background-color: rgba(13, 13, 62, 0.781);
+ background: linear-gradient(90deg, rgb(243, 74, 74) 0%, rgb(162, 103, 218) 78%, rgb(123, 93, 242) 100%);
   height: 80%;
   min-height: 250px;
   position: relative;
@@ -141,7 +141,7 @@ font-weight: lighter;
   justify-content: space-around;
   width: 60%;
   margin:auto;
-  position: absolute;
+
 left:0;
 right: 0;
 z-index: 9999; /* it was present on the screen but not interactable because of ovelaping*/
@@ -153,13 +153,15 @@ transform: translateY(500px);
 .levels button{
   cursor: pointer;
   transition: ease-in-out 0.7s;
+ background: linear-gradient(90deg, rgb(243, 74, 74) 0%, rgb(162, 103, 218) 78%, rgb(123, 93, 242) 100%);;
+ color:white;
 }
 .levels button:hover{
-  transform: scale(1.2);
+  transform: translateY(-20px)
 }
 @keyframes slideInButton{
     to {
-    transform: translateY(30px);
+    transform: translateY(100px);
     opacity: 1;
   }
 }
@@ -198,9 +200,9 @@ transform: translateY(500px);
   padding:0.5rem;
   font-weight: 500;
   font-style: oblique;
-  background-color: rgba(255, 255, 255, 0.836);
-  color:darkblue;
-  border:rgb(31, 21, 62) 2px solid;
+border:none;
+font-family: cursive;
+
   
     border-radius: 10px;
 
@@ -210,23 +212,25 @@ transform: translateY(500px);
   justify-content: left;
   text-align: center;
 
-  position: absolute;
-  right: 0;
   gap: 1rem;
+  padding:0.4rem;
 
   
 }
 
 .scores div{
-background-color: orange;
-width: 200px;
+ background: linear-gradient(90deg, rgb(243, 74, 74) 0%, rgb(162, 103, 218) 78%, rgb(123, 93, 242) 100%);;
+width: 150px;
 border-radius: 15px;
 display: flex;
+color:white;
+
 flex-direction: column;
 }
 
 .scores div span{
   font-size: 1rem;
+  font-family: cursive;
 }
 .popup-ovelay{
   position: fixed;
@@ -290,13 +294,13 @@ padding:1rem;
   gap:2rem;
 }
 
-.btn div:first-child i{
+.btn button:first-child i{
   color:yellow;
   background-color: black;
   padding:0.5rem;
   border-radius: 50%;
 }
-.btn div:last-child i{
+.btn button:last-child i{
   color:rgb(20, 63, 236);
   background-color: black;
   padding:0.5rem;
@@ -312,8 +316,7 @@ padding:1rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
  grid-auto-rows: minmax(200px, auto);
-
- gap: 1.5rem;
+ row-gap:2rem;
  left:0;
  right: 0;
  top: 80px;
@@ -321,14 +324,14 @@ padding:1rem;
 
 }
 .card-scene {
-  max-width: 300px;
+  max-width: 200px;
   height: 100%;
 
   perspective: 1000px;
 }
 
 .card {
-  max-width:250px ;
+  max-width:200px ;
   min-width: 120px;
   height: 100%;
 
@@ -336,8 +339,10 @@ padding:1rem;
   transform-style: preserve-3d;
   transition: transform 1s ease-in-out;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.392);
+  background: linear-gradient(90deg, rgb(243, 74, 74) 0%, rgb(162, 103, 218) 78%, rgb(123, 93, 242) 100%);;
   border-radius: 10px;
+    border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
  
   transition: 500ms ;
   transition: 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
@@ -383,8 +388,10 @@ padding:1rem;
   color:white;
   text-shadow: 2px 2px 10px white;
   font-size: 1.2rem;
-  background-color: orangered;
+ background: linear-gradient(90deg, rgb(243, 74, 74) 0%, rgb(162, 103, 218) 78%, rgb(123, 93, 242) 100%);;
   border-radius: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .card-back {

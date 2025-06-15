@@ -236,13 +236,26 @@ function App() {
                   style={{ display: "flex", justifyContent: "space-around" }}
                 >
                   <div>
-                    <button>
+                    <button
+                      onClick={() => {
+                        setIsGameOver(false);
+                        setGame(true);
+                        setLost(false);
+                      }}
+                    >
                       {" "}
                       <i className="fa-regular fa-circle"></i>Retry
                     </button>
                   </div>
                   <div>
-                    <button>
+                    <button
+                      onClick={() => {
+                        setIsGameOver(false);
+                        setLeave(true);
+                        setIsWin(false);
+                        setLost(false);
+                      }}
+                    >
                       {" "}
                       <i className="fa-regular fa-circle-xmark"></i>Leave for
                       now
