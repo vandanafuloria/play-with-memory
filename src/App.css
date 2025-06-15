@@ -518,8 +518,8 @@ font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, O
   display: flex;
 flex-direction: row;
 flex-wrap: wrap;
-gap:2rem;
-  padding:1rem;
+gap:1rem;
+ 
   }
   .card{
     height: 150px;

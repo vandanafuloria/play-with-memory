@@ -39,6 +39,7 @@ function App() {
   const [leave, setLeave] = useState(false);
 
   // whatever clicked once , will save in this array;
+  const url = "https://pokeapi.co/api/v2/pokemon?limit=1000";
 
   useEffect(() => {
     setTimeout(() => {
@@ -48,30 +49,36 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        const detailPromises = data.results.map((pokemon) =>
-          fetch(pokemon.url).then((res) => res.json())
-        );
-        return Promise.all(detailPromises);
-      })
-      .then((details) => {
-        const validDetails = details.filter(
-          (item) => item && item.name && item.sprites
-        );
+    const ids = generateRandomNumbers(15);
+    const details = ids.map((id) =>
+      fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`).then((res) =>
+        res.json()
+      )
+    );
+    Promise.all(details).then((details) => {
+      const validDetails = details.filter(
+        (item) => item && item.name && item.sprites
+      );
 
-        const finalData = validDetails.map((p) => ({
-          id: p.id,
-          name: p.name,
-          image: p.sprites.other["official-artwork"].front_default,
-        }));
-        // setCards(finalData);
-        setPokemonList(finalData);
-      });
+      const finalData = validDetails.map((p) => ({
+        id: p.id,
+        name: p.name,
+        image: p.sprites.other["official-artwork"].front_default,
+      }));
+
+      // setCards(finalData);
+      setPokemonList(finalData);
+    });
   }, []);
 
-  const url = "https://pokeapi.co/api/v2/pokemon?limit=25";
+  function generateRandomNumbers(count) {
+    const numbers = [];
+    for (let i = 0; i < count; i++) {
+      const random = Math.floor(Math.random() * 1000) + 1; // range: 1 to 1000
+      numbers.push(random);
+    }
+    return numbers;
+  }
 
   function handleClickOnImage(id) {
     if (checked.includes(id)) {
@@ -241,6 +248,7 @@ function App() {
                         setIsGameOver(false);
                         setGame(true);
                         setLost(false);
+                        setChecked([]);
                       }}
                     >
                       {" "}
@@ -272,6 +280,7 @@ function App() {
                         setGame(true);
                         setIsGameOver(false);
                         setIsWin(false);
+                        setChecked([]);
                       }}
                     >
                       <i className="fa-regular fa-circle"> </i>Play Again
@@ -284,6 +293,7 @@ function App() {
                         setIsGameOver(false);
                         setPlaying(false);
                         setIsWin(false);
+                        setChecked([]);
                       }}
                     >
                       {" "}
