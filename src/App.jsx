@@ -8,10 +8,12 @@ import LoadingGame from "./components/LoadingGame";
 import Audio from "./ui-components/Audio";
 import Game from "./components/GamePage.jsx";
 import Playground from "./components/Playground";
-import lostVdo from "./assets/lily/lost.mp4";
+
 import play from "./assets/lily/play.mp4";
 import victory from "./assets/lily/victory.mp3";
 import lostAdo from "./assets/lily/lost.mp3";
+const lostVdo =
+  "https://packaged-media.redd.it/ts43e1oey58d1/pb/m2-res_1080p.mp4?m=DASHPlaylist.mpd&v=1&e=1749988800&s=92dd398840d2026a72cbfeac627f0d98b11a7024";
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -217,13 +219,21 @@ function App() {
               </div>
               {lost && (
                 <div
+                  className="btn"
                   style={{ display: "flex", justifyContent: "space-around" }}
                 >
                   <div>
-                    <button>Retry</button>
+                    <button>
+                      {" "}
+                      <i className="fa-regular fa-circle"></i>Retry
+                    </button>
                   </div>
                   <div>
-                    <button>Leave for now</button>
+                    <button>
+                      {" "}
+                      <i className="fa-regular fa-circle-xmark"></i>Leave for
+                      now
+                    </button>
                   </div>
                 </div>
               )}

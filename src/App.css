@@ -50,6 +50,7 @@ cursor: pointer;
     background-color: white;
     padding: 1rem;
     color: black;
+    z-index: 99999;
 
 }
 .intro{
@@ -227,16 +228,66 @@ flex-direction: column;
   background: rgba(0, 0, 0, 0.176);
   display: flex;
   justify-content: center;
-  align-items: center;
+
   z-index: 999;
 }
 .popup {
-  background: white;
+
   padding: 2rem;
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Courier New', Courier, monospace;
+  color:white;
+ 
 }
+.popup span{
+  font-family: cursive;
+  font-size: 1.5rem;;
+}
+.popup h1{
+  color:white;
+  font-size: 4rem;
+
+}
+.popup button{
+  border-radius: 35px;
+  border:none;
+  padding:1rem;
+  font-size: 1.5rem;
+   font-weight: 600;
+  
+
+  margin-top:5rem;
+     background: linear-gradient(90deg, rgb(243, 74, 74) 0%, rgb(162, 103, 218) 78%, rgb(123, 93, 242) 100%);
+     color:white;
+}
+.btn{
+  display: flex;
+  justify-content: space-between;
+  gap:3rem;
+  flex-wrap: wrap;
+}
+.btn button{
+  display: flex;
+align-items: center;
+padding:1rem;
+  gap:2rem;
+}
+
+.btn div:first-child i{
+  color:yellow;
+  background-color: black;
+  padding:0.5rem;
+  border-radius: 50%;
+}
+.btn div:last-child i{
+  color:rgb(20, 63, 236);
+  background-color: black;
+  padding:0.5rem;
+  border-radius: 50%;
+}
+
 /********************** CARD FILIPPING CSS **********************************/
 
 .main-cards{
