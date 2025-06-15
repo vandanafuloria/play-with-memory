@@ -36,6 +36,7 @@ function App() {
   const [isWin, setIsWin] = useState(false);
   const [status, setIsStatus] = useState("");
   const [winPoint, setIsWinPoint] = useState("");
+  const [leave, setLeave] = useState(false);
 
   // whatever clicked once , will save in this array;
 
@@ -83,14 +84,14 @@ function App() {
       setChecked([...checked, id]);
       setScore(score + 1);
       console.log("this is score", isEasy, ":", score);
-      if (isEasy == "easy" && score == 6) {
+      if (isEasy == "easy" && score == 4) {
         setIsWin(true);
         setScore(0);
         setPlaying(false);
         setLost(false);
         setIsGameOver(true);
         setIsStatus("Won");
-      } else if (isEasy == "medium" && score == 10) {
+      } else if (isEasy == "medium" && score == 8) {
         setIsWin(true);
         setScore(0);
         setPlaying(false);
@@ -181,11 +182,11 @@ function App() {
     if (player == "easy") {
       setVisibleCards(getFirstFour(pokemonList));
       setIsEasy("easy");
-      setIsWinPoint(6);
+      setIsWinPoint(4);
     } else if (player == "medium") {
       setVisibleCards(getFirstEight(pokemonList));
       setIsEasy("medium");
-      setIsWinPoint(10);
+      setIsWinPoint(8);
     } else {
       setVisibleCards(getFirstTwelve(pokemonList));
       setIsEasy("hard");
@@ -253,12 +254,25 @@ function App() {
                 <div className="btn">
                   <div>
                     {" "}
-                    <button>
+                    <button
+                      onClick={() => {
+                        setGame(true);
+                        setIsGameOver(false);
+                        setIsWin(false);
+                      }}
+                    >
                       <i className="fa-regular fa-circle"> </i>Play Again
                     </button>
                   </div>
                   <div>
-                    <button>
+                    <button
+                      onClick={() => {
+                        setLeave(true);
+                        setIsGameOver(false);
+                        setPlaying(false);
+                        setIsWin(false);
+                      }}
+                    >
                       {" "}
                       <i className="fa-regular fa-circle-xmark"></i>Leave for
                       Now
@@ -291,6 +305,11 @@ function App() {
           </div>
         )}
       </div>
+      {leave && (
+        <p className="leave">
+          Thanks for playing! Come back soon to challenge yourself again 🧠✨
+        </p>
+      )}
     </>
   );
 }

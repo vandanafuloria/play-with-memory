@@ -441,3 +441,14 @@ padding:1rem;
     color: black;
   background-color: white;
 }
+body{
+background: linear-gradient(90deg, rgb(243, 74, 74) 0%, rgb(162, 103, 218) 78%, rgb(123, 93, 242) 100%); 
+}
+.leave{
+  font-size: 5rem;
+  text-align: center;
+  color:white;
+  text-shadow: 5px 5px 20px white;
+  font-family: cursive;
+ font-weight: 900;
+}
